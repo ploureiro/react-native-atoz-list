@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: '#fff',
   },
   alphabetSidebar: {
     position: 'absolute',

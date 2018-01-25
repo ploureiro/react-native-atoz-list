@@ -6,7 +6,7 @@ class LetterPicker extends Component {
 
     render() {
         return (
-            <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+            <Text style={{ fontSize: 14, fontWeight: 'bold', color:'#333' }}>
                 {this.props.letter}
             </Text>
         );
