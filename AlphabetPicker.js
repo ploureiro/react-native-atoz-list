@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, PanResponder } from 'react-native';
 import PropTypes from 'prop-types';
+import { isSmallDevice } from '../../app/lib/string';
+import DeviceInfo from 'react-native-device-info';
 
 class LetterPicker extends Component {
 
     render() {
         return (
-            <Text style={{ fontSize: 14, fontWeight: 'bold', color:'#333' }}>
+            <Text style={{ fontSize: isSmallDevice(DeviceInfo.getModel()) ? 12 : 14, fontWeight: 'bold', color:'#2D3333', textAlign:'center' }}>
                 {this.props.letter}
             </Text>
         );
