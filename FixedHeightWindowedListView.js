@@ -11,6 +11,7 @@ import {
   Text,
   View,
   Dimensions,
+  Keyboard,
 } from 'react-native';
 
 import FixedHeightWindowedListViewDataSource from './FixedHeightWindowedListViewDataSource';
@@ -248,6 +249,7 @@ export default class FixedHeightWindowedListView extends Component {
   }
 
   __onScroll(e) {
+    Keyboard.dismiss();
     this.prevScrollOffsetY = this.scrollOffsetY || 0;
     this.scrollOffsetY = e.nativeEvent.contentOffset.y;
     this.scrollDirection = this.__getScrollDirection();
