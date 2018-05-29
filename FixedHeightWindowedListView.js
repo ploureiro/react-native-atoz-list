@@ -109,6 +109,8 @@ export default class FixedHeightWindowedListView extends Component {
 
     return (
       <ScrollView
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="handled"
         scrollEventThrottle={50}
         removeClippedSubviews={this.props.numToRenderAhead === 0 ? false : true}
         automaticallyAdjustContentInsets={false}
