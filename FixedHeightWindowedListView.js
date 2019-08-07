@@ -96,16 +96,29 @@ export default class FixedHeightWindowedListView extends Component {
       // white screen flashes on Android.
       // rows.push(<View key="sp-mid" style={{height: spacerMidHeight}} />);
     }
-
     this.__renderCells(rows, firstRow, lastRow);
 
     if (bufferFirstRow > lastRow && bufferFirstRow !== null) {
-      rows.push(<View key="sp-mid" style={{height: spacerMidHeight}} />);
+      rows.push(
+        <View
+          key="sp-mid"
+          style={{
+            height: Number.isFinite(spacerMidHeight) ? spacerMidHeight : 95,
+          }}
+        />,
+      );
       this.__renderCells(rows, bufferFirstRow, bufferLastRow);
     }
 
     let totalRows = this.props.dataSource.getRowCount();
-    rows.push(<View key="sp-bot" style={{height: spacerBottomHeight}} />);
+    rows.push(
+      <View
+        key="sp-bot"
+        style={{
+          height: Number.isFinite(spacerBottomHeight) ? spacerBottomHeight : 95,
+        }}
+      />,
+    );
 
     return (
       <ScrollView
