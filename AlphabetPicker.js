@@ -1,30 +1,25 @@
-import React, { Component } from 'react';
-import { View, Text, PanResponder } from 'react-native';
-import PropTypes from 'prop-types';
-import { isSmallDevice } from '../../app/lib/string';
-import DeviceInfo from 'react-native-device-info';
+import React, { Component } from "react";
+import { View, Text, PanResponder } from "react-native";
+import PropTypes from "prop-types";
+import { isSmallDevice } from "../../app/lib/string";
+import DeviceInfo from "react-native-device-info";
 
 class LetterPicker extends Component {
-
     render() {
-        return (
-            <Text style={{ fontSize: isSmallDevice(DeviceInfo.getModel()) ? 12 : 14, fontWeight: 'bold', color:'#2D3333', textAlign:'center' }}>
-                {this.props.letter}
-            </Text>
-        );
+        return <Text style={{ fontSize: isSmallDevice(DeviceInfo.getModel()) ? 12 : 14, fontWeight: "bold", color: "#2D3333", textAlign: "center" }}>{this.props.letter}</Text>;
     }
 }
 
-const Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+let Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 export default class AlphabetPicker extends Component {
     constructor(props, context) {
         super(props, context);
-        if(props.alphabet){
+        if (props.alphabet) {
             Alphabet = props.alphabet;
         }
         this.state = {
-            alphabet: Alphabet,
-          };
+            alphabet: Alphabet
+        };
     }
 
     componentWillMount() {
@@ -43,14 +38,14 @@ export default class AlphabetPicker extends Component {
                 this._onTouchLetter(this._findTouchedLetter(gestureState.moveY));
             },
             onPanResponderTerminate: this._onPanResponderEnd.bind(this),
-            onPanResponderRelease: this._onPanResponderEnd.bind(this),
+            onPanResponderRelease: this._onPanResponderEnd.bind(this)
         });
     }
     componentWillReceiveProps(nextProps) {
-        if(this.props.alphabet !== nextProps.alphabet){
-            this.setState({alphabet:nextProps.alphabet})
-          }
-      }
+        if (this.props.alphabet !== nextProps.alphabet) {
+            this.setState({ alphabet: nextProps.alphabet });
+        }
+    }
 
     _onTouchLetter(letter) {
         letter && this.props.onTouchLetter && this.props.onTouchLetter(letter);
@@ -64,10 +59,10 @@ export default class AlphabetPicker extends Component {
 
     _findTouchedLetter(y) {
         let top = y - (this.absContainerTop || 0);
-        const {alphabet} = this.state
+        const { alphabet } = this.state;
 
         if (top >= 1 && top <= this.containerHeight) {
-            return alphabet[Math.round((top / this.containerHeight) * alphabet.length)]
+            return alphabet[Math.round(top / this.containerHeight * alphabet.length)];
         }
     }
 
@@ -79,22 +74,18 @@ export default class AlphabetPicker extends Component {
     }
 
     render() {
-        const {alphabet} = this.state
-        this._letters = (
-            alphabet.map((letter) => <LetterPicker letter={letter} key={letter} />)
-        );
+        const { alphabet } = this.state;
+        this._letters = alphabet.map(letter => <LetterPicker letter={letter} key={letter} />);
 
         return (
             <View
-                ref='alphabetContainer'
+                ref="alphabetContainer"
                 {...this._panResponder.panHandlers}
                 onLayout={this._onLayout.bind(this)}
-                style={{ paddingHorizontal: 5, backgroundColor: 'transparent', borderRadius: 1, justifyContent: 'center' }}>
-                <View>
-                    {this._letters}
-                </View>
+                style={{ paddingHorizontal: 5, backgroundColor: "transparent", borderRadius: 1, justifyContent: "center" }}
+            >
+                <View>{this._letters}</View>
             </View>
         );
     }
-
 }
